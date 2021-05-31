@@ -29,15 +29,13 @@ function moneyExchange(labels){
         let price = document.querySelectorAll(`.${labels[label]}`);
         if(price.length == 0) continue;
         for(ind in price){
-            if(re.test(price[ind].textContent)){
-                let matchItem = re.exec(price[ind].textContent);
-                if(matchItem[1].indexOf('ARS') >= 0){
-                    let p = matchItem[2].replace('.','').replace(',','.');
-                    price[ind].textContent = '￥' + (p / er).toFixed(2);
-                }
-            }
+            if(!re.test(price[ind].textContent) continue;
+            let matchItem = re.exec(price[ind].textContent);
+            if(matchItem[1].indexOf('ARS') < 0) continue;
+            let p = matchItem[2].replace('.','').replace(',','.');
+            price[ind].textContent = '￥' + (p / er).toFixed(2);
         }
     }
 }
-setTimeout(function(){moneyExchange(labels)}, 1000);
+setTimeout(function(){moneyExchange(labels)}, 1000); // run after 1s
 // window.onload = function(){moneyExchange(labels)};
