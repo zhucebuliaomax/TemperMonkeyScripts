@@ -2,7 +2,7 @@
 // @name           Douban2Mivie
 // @name:en        Douban2Mivie
 // @namespace      https://chat.openai.com/
-// @version        0.9.10
+// @version        0.9.12
 // @author         ChatGPT & ilovemonkey
 // @description    在豆瓣电影详情页加入搜索按钮，可以直接跳转至Mivie搜索资源。Written by ChatGPT, modified by ilovemonkey.
 // @description:en Add a search button above Douban's movie info, allowing users to search for related resources on Mivie. Written by ChatGPT, modified by ilovemonkey.
@@ -36,7 +36,7 @@
 
   const searchInText = document.createTextNode('Search in\u00a0');
   const mivieText = document.createElement('span');
-    mivieText.style.cssText = 'background-image: url(https://framerusercontent.com/images/kp45FttH7EwX4Y1bwjSWn5f7Ws4.gif);' +
+    mivieText.style.cssText = 'background-image: url(https://s2.loli.net/2023/02/27/qvZXiaKgsU2Ocnd.gif);' +
     'background-size: 100%;' +
     'background-repeat: no-repeat;' +
     'background-position: 50% 50%;' +
@@ -52,8 +52,9 @@
   const url = window.location.href;
 
   if (url.indexOf('https://movie.douban.com/subject/') !== -1) {
-
-  const cleanedTitle = document.title.replace(/\s*\(\s*豆瓣\s*\)\s*$/, '');
+  const p1 = document.title
+  const regex = /(\S+)\s+第.*?季\s+\(.*?\)/;
+  const cleanedTitle = document.title.replace(regex, (match, p1) => p1);
   const h1 = document.querySelector('h1');
   const num = h1?.textContent.match(/\((\d+)\)/)?.[1] || '';
   const searchUrl = `https://mivie.io/search?q=${cleanedTitle}%20y%3A${num}`;
@@ -80,13 +81,15 @@
 
   const info = document.getElementById('info');
   info.insertBefore(button, info.firstElementChild);
-} else if (url.indexOf('https://m.douban.com/movie/subject/') !== -1) {
-                const title = document.querySelector('.sub-title').textContent;
-                const number = document.querySelector('.sub-original-title').textContent.match(/\[(\d+)\]/)[1];
-                const newUrl = `https://mivie.io/search?q=${title}%20y%3A${number}`;
-                const subMetaDiv = document.querySelector('.sub-meta');
-        button.addEventListener('click', () => window.open(newUrl, '_blank');
-        subMetaDiv.parentNode.insertBefore(button, subMetaDiv.nextSibling);
-        );
-    }
+} 
+else if (url.indexOf('https://m.douban.com/movie/subject/') !== -1) {
+  const subMetaDiv = document.querySelector('.sub-meta');
+  subMetaDiv.parentNode.insertBefore(button, subMetaDiv.nextSibling);
+  button.addEventListener('click', function() {
+      const subTitle = document.querySelector('.sub-title');
+      const mobileTitle = subTitle.textContent.replace(/第.*?季/g, '');
+      const newUrl = `https://mivie.io/search?q=${mobileTitle}`;
+      window.open(newUrl, '_blank');
+  });
+}
 })();
