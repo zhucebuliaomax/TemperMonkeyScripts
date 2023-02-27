@@ -42,16 +42,16 @@
 
   const searchInText = document.createTextNode('Search in\u00a0');
   const mivieText = document.createElement('span');
-    mivieText.style.backgroundImage = 'url(https://framerusercontent.com/images/kp45FttH7EwX4Y1bwjSWn5f7Ws4.gif)';
-    mivieText.style.backgroundSize = '100%';
-    mivieText.style.backgroundRepeat = 'no-repeat';
-    mivieText.style.backgroundPosition = '50% 50%';
-    mivieText.style.backgroundClip = 'text';
-    mivieText.style.webkitBackgroundClip = 'text';
-    mivieText.style.webkitTextFillColor = 'transparent';
-    mivieText.style.textFillColor = 'transparent';
-    mivieText.style.color = 'rgb(136, 136, 136)';
-    mivieText.style.fontWeight = 'bold';
+    mivieText.style.cssText = 'background-image: url(https://framerusercontent.com/images/kp45FttH7EwX4Y1bwjSWn5f7Ws4.gif);' +
+    'background-size: 100%;' +
+    'background-repeat: no-repeat;' +
+    'background-position: 50% 50%;' +
+    'background-clip: text;' +
+    '-webkit-background-clip: text;' +
+    '-webkit-text-fill-color: transparent;' +
+    'text-fill-color: transparent;' +
+    'color: rgb(136, 136, 136);' +
+    'font-weight: bold;';
     mivieText.textContent = 'Mivie';
   button.append(searchInText, mivieText);
 
