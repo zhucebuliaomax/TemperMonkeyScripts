@@ -2,7 +2,7 @@
 // @name           Douban2Mivie
 // @name:en        Douban2Mivie
 // @namespace      https://chat.openai.com/
-// @version        0.9.14
+// @version        0.9.15
 // @author         ChatGPT & ilovemonkey
 // @description    在豆瓣电影详情页加入搜索按钮，可以直接跳转至Mivie搜索资源。Written by ChatGPT, modified by ilovemonkey.
 // @description:en Add a search button above Douban's movie info, allowing users to search for related resources on Mivie. Written by ChatGPT, modified by ilovemonkey.
@@ -37,7 +37,7 @@
   const searchInText = document.createTextNode('Search in\u00a0');
   const mivieText = document.createElement('span');
     mivieText.style.cssText = 'background-image: url(https://s2.loli.net/2023/02/27/qvZXiaKgsU2Ocnd.gif);' +
-    'background-size: 100%;' +
+    'background-size: 110%;' +
     'background-repeat: no-repeat;' +
     'background-position: 50% 60%;' +
     'background-clip: text;' +
