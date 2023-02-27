@@ -15,12 +15,6 @@
 (function() {
   'use strict';
 
-  const cleanedTitle = document.title.replace(/\s*\(\s*豆瓣\s*\)\s*$/, '');
-  const h1 = document.querySelector('h1');
-  const num = h1?.textContent.match(/\((\d+)\)/)?.[1] || '';
-
-  const searchUrl = `https://mivie.io/search?q=${cleanedTitle}%20y%3A${num}`;
-
   const button = document.createElement('button');
   button.style.cssText = `
     width: 120px;
@@ -40,7 +34,6 @@
     cursor: pointer;
   `;
 
-
   const searchInText = document.createTextNode('Search in\u00a0');
   const mivieText = document.createElement('span');
     mivieText.style.cssText = 'background-image: url(https://framerusercontent.com/images/kp45FttH7EwX4Y1bwjSWn5f7Ws4.gif);' +
@@ -55,6 +48,15 @@
     'font-weight: bold;';
     mivieText.textContent = 'Mivie';
   button.append(searchInText, mivieText);
+
+  const url = window.location.href;
+
+  if (url.indexOf('https://movie.douban.com/subject/') !== -1) {
+
+  const cleanedTitle = document.title.replace(/\s*\(\s*豆瓣\s*\)\s*$/, '');
+  const h1 = document.querySelector('h1');
+  const num = h1?.textContent.match(/\((\d+)\)/)?.[1] || '';
+  const searchUrl = `https://mivie.io/search?q=${cleanedTitle}%20y%3A${num}`;
 
   let timeoutId;
 
@@ -77,13 +79,14 @@
   button.addEventListener('click', () => window.open(searchUrl, '_blank'));
 
   const info = document.getElementById('info');
-  const subMeta = document.querySelector('.sub-meta');
-
-  if (info) {
-    info.insertBefore(button, info.firstElementChild);
-  }
-  // 如果没有 id="info" 的元素，则添加到 class="sub-meta" 的元素的后面
-  else if (subMeta) {
-    subMeta.parentNode.insertBefore(button, subMeta.nextSibling);
-  }
+  info.insertBefore(button, info.firstElementChild);
+} else if (url.indexOf('https://m.douban.com/movie/subject/') !== -1) {
+                const title = document.querySelector('.sub-title').textContent;
+                const number = document.querySelector('.sub-original-title').textContent.match(/\[(\d+)\]/)[1];
+                const newUrl = `https://mivie.io/search?q=${title}%20y%3A${number}`;
+                const subMetaDiv = document.querySelector('.sub-meta');
+        button.addEventListener('click', () => window.open(newUrl, '_blank');
+        subMetaDiv.parentNode.insertBefore(button, subMetaDiv.nextSibling);
+        );
+    }
 })();
